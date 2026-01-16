@@ -9,6 +9,7 @@ export function useFetch <T> (url : string) {
         try{
             const res = await axios.get<T>(url);
 
+
             setData(res.data);
             console.log(data);
         }catch(e : any) {
