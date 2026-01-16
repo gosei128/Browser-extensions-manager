@@ -47,11 +47,13 @@ const Home = () => {
           <h1 className="font-bold text-4xl">Extension</h1>
 
           <ul className="flex gap-2">
-            <li className=" bg-red-700 text-white border p-2 text-lg px-6 rounded-full">
+            <li className=" bg-red-700  text-white border p-2 text-lg px-6 rounded-full">
               All
             </li>
-            <li className=" bg-white  p-2 text-lg px-6 rounded-full">Active</li>
-            <li className=" bg-white p-2 text-lg px-6 rounded-full">
+            <li className=" bg-white dark:bg-neutral-800  p-2 text-lg px-6 rounded-full">
+              Active
+            </li>
+            <li className=" bg-white dark:bg-neutral-800 p-2 text-lg px-6 rounded-full">
               Inactive
             </li>
           </ul>
@@ -64,7 +66,7 @@ const Home = () => {
                   <div className="w-full max-w-[400px]">
                     <div
                       key={index}
-                      className="bg-white flex flex-col justify-between shadow-lg shadow-neutral-200 h-56 rounded-3xl p-5"
+                      className="bg-white dark:bg-neutral-800 dark:shadow-none flex flex-col justify-between shadow-lg shadow-neutral-200 h-56 rounded-3xl p-5"
                     >
                       <div className="flex  gap-4">
                         <img
@@ -86,7 +88,9 @@ const Home = () => {
                         <button
                           onClick={() => handleToggle(index)}
                           className={`relative rounded-full py-3 px-6 h-6  ${
-                            card.isActive ? "bg-red-700" : "bg-neutral-300"
+                            card.isActive
+                              ? "bg-red-700"
+                              : "bg-neutral-300 dark:bg-neutral-600"
                           }`}
                         >
                           <span

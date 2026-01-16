@@ -8,7 +8,7 @@ interface NavbarProps {
 const Navbar = ({ themeEvent, theme }: NavbarProps) => {
   return (
     <>
-      <nav className="bg-white border flex justify-between p-3 rounded-lg">
+      <nav className="bg-white shadow-md flex justify-between p-3 rounded-xl dark:bg-neutral-800">
         <img src={Logo} alt="Logo Image" />
         <button onClick={themeEvent} className="border p-2  rounded-lg">
           <img
