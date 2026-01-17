@@ -51,7 +51,7 @@ const CardsContainer : React.FC<CardsProps>  = ({handleToggle, cards }) => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="w-full max-w-7xl flex flex-wrap items-start  mt-8 gap-4"
+          className="w-full max-w-7xl flex flex-wrap items-start  gap-4"
         >
           <AnimatePresence mode="popLayout">
             {cards && cards.length > 0

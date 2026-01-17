@@ -1,10 +1,10 @@
-import { useFetch } from "../hooks/useFetch.ts";
+
 import { useEffect, useMemo, useState } from "react";
 import CardsContainer from "./Cards.tsx";
 import type { Card } from "../types/Card";
-
+import cardsData from '../../public/data.json'
 const Home = () => {
-  const data = useFetch<Card[]>("../data.json");
+  const data : Card[] = cardsData
   const [allCards, setAllCards] = useState<Card[]>([]);
   const [filterState, setFilterState] = useState('all')
 
@@ -42,9 +42,9 @@ const Home = () => {
 
   return (
     <>
-      <div className="mt-5">
+      <div className="mt-15">
         <div className=" flex gap-5 justify-center mobile:flex-col mobile:items-center laptop:flex-row laptop:justify-between">
-          <h1 className="font-bold text-4xl">Extension</h1>
+          <h1 className="font-bold text-neutral-900 text-4xl">Extensions</h1>
 
           <ul className="flex gap-2">
             <li onClick={()=> setFilterState('all')} className={`transition-colors shadow-md duration-150 p-2 text-lg px-6 rounded-full ${filterState === "all" ? "bg-red-700 text-white" : "bg-white dark:bg-neutral-800 dark:text-white text-neutral-800"}`}>
@@ -59,7 +59,7 @@ const Home = () => {
           </ul>
         </div>
 
-        <div className="w-full max-w-7xl flex flex-wrap justify-center mt-8 gap-4">
+        <div className="w-full max-w-7xl flex flex-wrap justify-center mt-5 gap-4">
           <CardsContainer handleToggle={handleToggle} cards={cards} />
         </div>
       </div>
