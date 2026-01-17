@@ -28,7 +28,7 @@ function App() {
         transition={{ duration: 0.2 }}
       />
 
-      <div className="z-10 relative p-4 dark:text-white h-fit font-[Noto_Sans] w-full max-w-7xl">
+      <div className="z-10 relative p-4 dark:text-white h-full min-h-screen font-[Noto_Sans] w-full max-w-7xl">
         <Navbar theme={isDark} themeEvent={themeToggle} />
         <Home />
       </div>

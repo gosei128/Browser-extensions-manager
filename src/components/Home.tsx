@@ -5,9 +5,8 @@ import type { Card } from "../types/Card";
 
 const Home = () => {
   const data = useFetch<Card[]>("../data.json");
-  const [active, setActive] = useState<number[]>([]);
   const [allCards, setAllCards] = useState<Card[]>([]);
-  const [filterCard, setFilterCard] = useState('all')
+  const [filterState, setFilterState] = useState('all')
 
   useEffect(() => {
     if (data) {
@@ -17,40 +16,30 @@ const Home = () => {
   }, [data]);
 
   const cards = useMemo(()=>{
-    if(filterCard === 'all'){
-      return allCards
-  }else if(filterCard === "active"){
-    return allCards.filter(card => card.isActive === true)
-  }else if(filterCard === "inactive"){
-    return allCards.filter(card => card.isActive === false)
-  }
-    return allCards
-  }, [filterCard, allCards])
-
-  const handleToggle = (currentId: number) => {
+    if(filterState === 'all'){
+              return allCards
+          }else if(filterState === "active"){
+            return allCards.filter(card => card.isActive === true);
+          }else if(filterState === "inactive"){
+            return allCards.filter(card => card.isActive === false)
+          }
+          return allCards
+  }, [filterState, allCards])
+ 
+  const handleToggle = (cardName: string) => {
     if (!allCards) return;
-    const cpyActive = [...active];
-    const findIndexOf = cpyActive.indexOf(currentId);
 
-    const updatedCard = allCards.map((card, index) => {
-      if (currentId === index) {
+    // Find the card by name in allCards and toggle its isActive
+    const updatedCards = allCards.map((card) => {
+      if (card.name === cardName) {
         return { ...card, isActive: !card.isActive };
       }
       return card;
     });
 
-    if (findIndexOf === -1) {
-      cpyActive.push(currentId);
-    } else {
-      cpyActive.splice(findIndexOf, 1);
-    }
-    setAllCards(updatedCard);
-    setActive(cpyActive);
-
+    setAllCards(updatedCards);
   };
 
-
-console.log(allCards)
   return (
     <>
       <div className="mt-5">
@@ -58,20 +47,20 @@ console.log(allCards)
           <h1 className="font-bold text-4xl">Extension</h1>
 
           <ul className="flex gap-2">
-            <li onClick={()=> setFilterCard('all')} className={`transition-colors duration-150 p-2 text-lg px-6 rounded-full ${filterCard === "all" ? "bg-red-700 text-white" : "bg-white dark:bg-neutral-800 dark:text-white text-neutral-800"}`}>
+            <li onClick={()=> setFilterState('all')} className={`transition-colors shadow-md duration-150 p-2 text-lg px-6 rounded-full ${filterState === "all" ? "bg-red-700 text-white" : "bg-white dark:bg-neutral-800 dark:text-white text-neutral-800"}`}>
               All
             </li>
-            <li onClick={()=> setFilterCard('active')} className={`transition-colors duration-150  p-2 text-lg px-6 rounded-full ${filterCard === "active" ? "bg-red-700  text-white" : "bg-white dark:text-white dark:bg-neutral-800 text-neutral-800"}`}>
+            <li onClick={()=> setFilterState('active')} className={`transition-colors shadow-md duration-150  p-2 text-lg px-6 rounded-full ${filterState === "active" ? "bg-red-700  text-white" : "bg-white dark:text-white dark:bg-neutral-800 text-neutral-800"}`}>
               Active
             </li>
-            <li onClick={()=> setFilterCard('inactive')} className={`transition-colors duration-150 p-2 text-lg px-6 rounded-full ${filterCard === "inactive" ? "bg-red-700  text-white" : "bg-white dark:text-white dark:bg-neutral-800 text-neutral-800"}`}>
+            <li onClick={()=> setFilterState('inactive')} className={`transition-colors shadow-md duration-150 p-2 text-lg px-6 rounded-full ${filterState === "inactive" ? "bg-red-700  text-white" : "bg-white dark:text-white dark:bg-neutral-800 text-neutral-800"}`}>
               Inactive
             </li>
           </ul>
         </div>
 
         <div className="w-full max-w-7xl flex flex-wrap justify-center mt-8 gap-4">
-          <CardsContainer handleToggle={(index:number)=> {handleToggle(index)}} cards={cards} />
+          <CardsContainer handleToggle={handleToggle} cards={cards} />
         </div>
       </div>
     </>
