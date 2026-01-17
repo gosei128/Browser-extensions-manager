@@ -1,25 +1,38 @@
 import { useFetch } from "../hooks/useFetch.ts";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CardsContainer from "./Cards.tsx";
 import type { Card } from "../types/Card";
 
 const Home = () => {
   const data = useFetch<Card[]>("../data.json");
   const [active, setActive] = useState<number[]>([]);
-  const [cards, setCards] = useState<Card[]>([]);
+  const [allCards, setAllCards] = useState<Card[]>([]);
+  const [filterCard, setFilterCard] = useState('all')
 
   useEffect(() => {
     if (data) {
-      setCards(data);
+      setAllCards(data);
     }
+
   }, [data]);
 
+  const cards = useMemo(()=>{
+    if(filterCard === 'all'){
+      return allCards
+  }else if(filterCard === "active"){
+    return allCards.filter(card => card.isActive === true)
+  }else if(filterCard === "inactive"){
+    return allCards.filter(card => card.isActive === false)
+  }
+    return allCards
+  }, [filterCard, allCards])
+
   const handleToggle = (currentId: number) => {
-    if (!cards) return;
+    if (!allCards) return;
     const cpyActive = [...active];
     const findIndexOf = cpyActive.indexOf(currentId);
 
-    const updatedCard = cards.map((card, index) => {
+    const updatedCard = allCards.map((card, index) => {
       if (currentId === index) {
         return { ...card, isActive: !card.isActive };
       }
@@ -31,11 +44,13 @@ const Home = () => {
     } else {
       cpyActive.splice(findIndexOf, 1);
     }
-    setCards(updatedCard);
+    setAllCards(updatedCard);
     setActive(cpyActive);
 
   };
-console.log(cards)
+
+
+console.log(allCards)
   return (
     <>
       <div className="mt-5">
@@ -43,13 +58,13 @@ console.log(cards)
           <h1 className="font-bold text-4xl">Extension</h1>
 
           <ul className="flex gap-2">
-            <li className=" bg-red-700  text-white border p-2 text-lg px-6 rounded-full">
+            <li onClick={()=> setFilterCard('all')} className=" bg-red-700  text-white border p-2 text-lg px-6 rounded-full">
               All
             </li>
-            <li className=" bg-white dark:bg-neutral-800  p-2 text-lg px-6 rounded-full">
+            <li onClick={()=> setFilterCard('active')} className=" bg-white dark:bg-neutral-800  p-2 text-lg px-6 rounded-full">
               Active
             </li>
-            <li className=" bg-white dark:bg-neutral-800 p-2 text-lg px-6 rounded-full">
+            <li onClick={()=> setFilterCard('inactive')} className=" bg-white dark:bg-neutral-800 p-2 text-lg px-6 rounded-full">
               Inactive
             </li>
           </ul>
