@@ -58,13 +58,13 @@ console.log(allCards)
           <h1 className="font-bold text-4xl">Extension</h1>
 
           <ul className="flex gap-2">
-            <li onClick={()=> setFilterCard('all')} className=" bg-red-700  text-white border p-2 text-lg px-6 rounded-full">
+            <li onClick={()=> setFilterCard('all')} className={`transition-colors duration-150 p-2 text-lg px-6 rounded-full ${filterCard === "all" ? "bg-red-700 text-white" : "bg-white dark:bg-neutral-800 dark:text-white text-neutral-800"}`}>
               All
             </li>
-            <li onClick={()=> setFilterCard('active')} className=" bg-white dark:bg-neutral-800  p-2 text-lg px-6 rounded-full">
+            <li onClick={()=> setFilterCard('active')} className={`transition-colors duration-150  p-2 text-lg px-6 rounded-full ${filterCard === "active" ? "bg-red-700  text-white" : "bg-white dark:text-white dark:bg-neutral-800 text-neutral-800"}`}>
               Active
             </li>
-            <li onClick={()=> setFilterCard('inactive')} className=" bg-white dark:bg-neutral-800 p-2 text-lg px-6 rounded-full">
+            <li onClick={()=> setFilterCard('inactive')} className={`transition-colors duration-150 p-2 text-lg px-6 rounded-full ${filterCard === "inactive" ? "bg-red-700  text-white" : "bg-white dark:text-white dark:bg-neutral-800 text-neutral-800"}`}>
               Inactive
             </li>
           </ul>

@@ -10,7 +10,7 @@ const Navbar = ({ themeEvent, theme }: NavbarProps) => {
     <>
       <nav className="bg-white shadow-md flex justify-between p-3 rounded-xl dark:bg-neutral-800">
         <img src={Logo} alt="Logo Image" />
-        <button onClick={themeEvent} className="border p-2  rounded-lg">
+        <button onClick={themeEvent} className="border border-neutral-400 dark:border-neutral-700 p-2  rounded-lg">
           <img
             className="size-5"
             src={theme ? LightLogo : DarkLogo}
