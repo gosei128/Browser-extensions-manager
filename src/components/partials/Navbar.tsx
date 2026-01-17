@@ -1,6 +1,6 @@
-import Logo from "../../../assets/images/logo.svg";
-import DarkLogo from "../../../assets/images/icon-moon.svg";
-import LightLogo from "../../../assets/images/icon-sun.svg";
+import Logo from '../../../public/images/logo.svg';
+import DarkLogo from "../../../public/images/icon-moon.svg";
+import LightLogo from "../../../public/images/icon-sun.svg";
 interface NavbarProps {
   themeEvent: () => void;
   theme: boolean;
